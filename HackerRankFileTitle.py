@@ -2,6 +2,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
+import chromedriver_binary
 
 #ブラウザの立ち上がる
 browser = webdriver.Chrome() 
