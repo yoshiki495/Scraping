@@ -2,35 +2,41 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 import chromedriver_binary
+import time
 
 #ブラウザの立ち上がる
-browser = webdriver.Chrome() 
-browser.get('https://www.hackerrank.com/domains/python') #この部分でエラー発生中
+driver = webdriver.Chrome() 
+driver.get('https://www.hackerrank.com/domains/python')
 
-html = browser.find_element_by_class_name('challengecard-title')
-print(html)
+#20回スクロールの動作を行う
+for i in range(20):
+    # ページの一番下までスクロールする
+    driver.execute_script('window.scrollTo(0 ,document.body.scrollHeight);')
+    time.sleep(10)
+
+source = driver.find_elements(By.CLASS_NAME, value='challengecard-title')
 
 '''
-# beautifulsoupを使用したデータ取得（スクロールが発生する場合は使用できない）
+# beautifulsoupを使用したデータ取得（スクロールが発生する場合は使用できないためコメントアウト）
 title_texts = soup.find_all(class_='challengecard-title')
+'''
 
 # データ整形（ファイル名が見やすいように）
 title_array = []
-for title in title_texts:
+for title in source:
     title = title.text
     title = title.split('Easy')[0]
     title = title.split('Medium')[0]
     title = title.split('Hard')[0]
-    title_array.append(title)
+    title = title.split('.')[0]
+    title = title.split('\n')[0]
+    title_array.append(title)   
 
-print(title_array)
-'''
-
-'''
 # ファイル作成
-title = 'a' 
-path = '../HackerRank/' + title + '.py'
-f = open(path, 'w')
-f.write("")
-'''
+for title in title_array:
+    path = '../HackerRank/' + '[Caption' + str(title_array.index(title)) + ']' + title + '.py'
+    f = open(path, 'w')
+    f.write("")
+    print(title)
