@@ -36,7 +36,7 @@ for title in source:
 
 # ファイル作成
 for title in title_array:
-    path = '../HackerRank/' + '[Caption' + str(title_array.index(title)) + ']' + title + '.py'
+    path = '../HackerRank/' + '[Caption' + str(title_array.index(title)).zfill(3) + ']' + title + '.py'
     f = open(path, 'w')
     f.write("")
     print(title)
