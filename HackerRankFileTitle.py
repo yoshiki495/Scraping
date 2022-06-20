@@ -6,9 +6,10 @@ from selenium.webdriver.common.by import By
 import chromedriver_binary
 import time
 
-#ブラウザの立ち上がる
+# ブラウザを起動
 driver = webdriver.Chrome() 
-driver.get('https://www.hackerrank.com/domains/python')
+# 対象URLの取得（''中に取得するURLを記入）
+driver.get('https://www.hackerrank.com/domains/') 
 
 #20回スクロールの動作を行う
 for i in range(20):
@@ -16,6 +17,7 @@ for i in range(20):
     driver.execute_script('window.scrollTo(0 ,document.body.scrollHeight);')
     time.sleep(10)
 
+# 対象classの取得（''中にclass名を記入）
 source = driver.find_elements(By.CLASS_NAME, value='challengecard-title')
 
 '''
@@ -36,7 +38,8 @@ for title in source:
 
 # ファイル作成
 for title in title_array:
-    path = '../HackerRank/' + '[Caption' + str(title_array.index(title)).zfill(3) + ']' + title + '.py'
+    # ファイル作成先の指定（最初の''中に名前を記入, 最後の''中に拡張子を記入）
+    path = '../HackerRank//' + '[Caption' + str(title_array.index(title)).zfill(3) + ']' + title + ''
     f = open(path, 'w')
     f.write("")
     print(title)
